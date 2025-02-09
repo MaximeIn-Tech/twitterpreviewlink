@@ -15,4 +15,4 @@ It would also work by replacing `x.com` by `twitter.com`.
 
 # Roadmad
 
-[] Make it more easy to chose the end result.
+- [ ] Make it more easy to chose the end result.
