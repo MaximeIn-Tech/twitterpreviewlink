@@ -49,7 +49,7 @@ async def get_twitter_link(update, context):
     match = pattern.search(user_message)
 
     if match:
-        modified_link = match.group() + "?=20"
+        modified_link = match.group() + "?=19"
         await update.message.reply_text(modified_link)
 
 
