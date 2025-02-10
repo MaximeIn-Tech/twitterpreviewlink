@@ -53,6 +53,17 @@ async def get_twitter_link(update, context):
         await update.message.reply_text(modified_link)
 
 
+async def handle_message(update, context):
+    """Handle messages based on chat type."""
+    # Check if it's a private chat or a group chat
+    if update.message.chat.type == "private":
+        # In private chats, respond to all messages
+        await get_twitter_link(update, context)
+    else:
+        if "@" + (await context.bot.get_me()).username in update.message.text:
+            await get_twitter_link(update, context)
+
+
 def main():
     """Run the bot."""
     print("Starting bot...")
@@ -65,7 +76,7 @@ def main():
     application.add_handler(
         MessageHandler(
             (filters.TEXT) & ~filters.COMMAND,
-            get_twitter_link,
+            handle_message,
         )
     )
 
