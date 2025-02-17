@@ -2,11 +2,13 @@
 
 This bot is here to solve a simple issue where sometimes Telegram doesn't show a preview of tweets.
 
-You can simply add ?s=20 at the end of the link and tadam.
-
-It would also work by replacing `x.com` by `twitter.com`.
+The bot deletes link attributes and replaces `x.com`by `twitter.com`.
 
 # Change Logs
+
+### February 17th 2025
+
+- Change the way the bot works. It deletes the attributes and replaces `x.com`by `twitter.com`.
 
 ### February 10th 2025
 

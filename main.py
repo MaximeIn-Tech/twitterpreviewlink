@@ -35,14 +35,30 @@ async def start(update, context):
     )
 
 
+def clean_twitter_link(link):
+    """Modify Twitter/X links: replace x.com with twitter.com and remove 't' and 's' parameters."""
+    # Replace x.com with twitter.com
+    link = link.replace("x.com", "twitter.com")
+
+    # Remove t and s parameters
+    link = re.sub(r"\?t=[^&]+&s=\d+", "", link)
+    link = re.sub(r"&t=[^&]+", "", link)
+    link = re.sub(r"\?s=\d+", "", link)
+
+    return link
+
+
 async def get_twitter_link(update, context):
     """Handle incoming messages and modify Twitter/X links."""
-    if update.message.text:
-        user_message = update.message.text
-    elif update.message.caption:
-        user_message = update.message.caption
-    else:
-        return
+    user_message = update.message.text or update.message.caption or ""
+
+    # Regex pattern to match Twitter/X URLs
+    pattern = re.compile(r"https://(?:x|twitter)\.com/\S+/status/\d+\S*")
+    match = pattern.search(user_message)
+
+    if match:
+        modified_link = clean_twitter_link(match.group())
+        await update.message.reply_text(modified_link)
 
     # Regex pattern to match Twitter/X URLs
     pattern = re.compile(r"https://x\.com/\S+/status/\d+")
